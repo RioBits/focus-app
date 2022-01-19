@@ -84,14 +84,14 @@ const Timer = () => {
           round.current = round.current + 1
           if (round.current % 2 === 0) {
             setTimeText('25:00')
-            time.current = 0.05 * 60
+            time.current = 25 * 60
           } else if (round.current % 7 === 0) {
             setTimeText('15:00')
-            time.current = 0.05 * 60
+            time.current = 15 * 60
             round.current = -1
           } else {
             setTimeText('05:00')
-            time.current = 0.05 * 60
+            time.current = 5 * 60
           }
         }}
       >
