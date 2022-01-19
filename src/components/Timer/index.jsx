@@ -5,7 +5,7 @@ import styles from './Timer.module.css'
 const Timer = () => {
   const [isRunning, setIsRunning] = useState(false)
   const [timeText, setTimeText] = useState('25:00')
-  const time = useRef(25 * 60)
+  const time = useRef(0.05 * 60)
   const round = useRef(0)
 
   useEffect(() => {
@@ -39,16 +39,7 @@ const Timer = () => {
       time.current = time.current - 1
 
       if (minutes === 0 && seconds === 0) {
-        const notificationSound = new Audio('./sounds/notification.mp3')
-        notificationSound.play()
-        new Notification("it's time to take break!", {
-          icon: './favicon.ico',
-          body: "Nice work! now le'ts take a break",
-        })
-
         setIsRunning(false)
-
-        round.current = round.current + 1
         updateTimer()
       }
       console.log('tick')
@@ -57,17 +48,27 @@ const Timer = () => {
 
   function updateTimer() {
     round.current = round.current + 1
+    const notificationSound = new Audio('./sounds/notification.mp3')
+    notificationSound.play()
     if (round.current % 2 === 0) {
+      time.current = 0.05 * 60
       setTimeText('25:00')
-      time.current = 25 * 60
+      return new Notification("It's time to go back to work!", {
+        icon: './favicon.ico',
+        body: "Let's get back to work",
+      })
     } else if (round.current % 7 === 0) {
-      setTimeText('15:00')
-      time.current = 15 * 60
+      time.current = 0.05 * 60
       round.current = -1
+      setTimeText('15:00')
     } else {
+      time.current = 0.05 * 60
       setTimeText('05:00')
-      time.current = 5 * 60
     }
+    new Notification("It's time to take break!", {
+      icon: './favicon.ico',
+      body: "Nice work! now let's take a break",
+    })
   }
 
   return (
