@@ -21,48 +21,53 @@ const Timer = () => {
 
     return () => {
       clearInterval(timer)
-      // console.log(`clear timer:`, timer)
+      console.log(`clear timer:`, timer)
+    }
+
+    function tick(time) {
+      const minutes = Math.floor(time.current / 60)
+      const seconds = time.current % 60
+
+      // Put a zero on the left side of the number
+      // Example: '04:02', '09:20', '12:07'.
+      setTimeText(
+        (minutes < 10 ? '0' + minutes : minutes) +
+          ':' +
+          (seconds < 10 ? '0' + seconds : seconds)
+      )
+
+      time.current = time.current - 1
+
+      if (minutes === 0 && seconds === 0) {
+        const notificationSound = new Audio('./sounds/notification.mp3')
+        notificationSound.play()
+        new Notification("it's time to take break!", {
+          icon: './favicon.ico',
+          body: "Nice work! now le'ts take a break",
+        })
+
+        setIsRunning(false)
+
+        round.current = round.current + 1
+        updateTimer()
+      }
+      console.log('tick')
     }
   }, [isRunning])
 
-  function tick(time) {
-    const minutes = Math.floor(time.current / 60)
-    const seconds = time.current % 60
-
-    // Put a zero on the left side of the number
-    // Example: '04:02', '09:20', '12:07'.
-    setTimeText(
-      (minutes < 10 ? '0' + minutes : minutes) +
-        ':' +
-        (seconds < 10 ? '0' + seconds : seconds)
-    )
-
-    time.current = time.current - 1
-
-    if (minutes === 0 && seconds === 0) {
-      const notificationSound = new Audio('./sounds/notification.mp3')
-      notificationSound.play()
-      new Notification("it's time to take break!", {
-        icon: './favicon.ico',
-        body: "Nice work! now le'ts take a break",
-      })
-
-      setIsRunning(false)
-
-      round.current = round.current + 1
-      if (round.current % 2 === 0) {
-        setTimeText('25:00')
-        time.current = 25 * 60
-      } else if (round.current % 7 === 0) {
-        setTimeText('15:00')
-        time.current = 15 * 60
-        round.current = -1
-      } else {
-        setTimeText('05:00')
-        time.current = 5 * 60
-      }
+  function updateTimer() {
+    round.current = round.current + 1
+    if (round.current % 2 === 0) {
+      setTimeText('25:00')
+      time.current = 25 * 60
+    } else if (round.current % 7 === 0) {
+      setTimeText('15:00')
+      time.current = 15 * 60
+      round.current = -1
+    } else {
+      setTimeText('05:00')
+      time.current = 5 * 60
     }
-    // console.log('tick')
   }
 
   return (
@@ -72,7 +77,6 @@ const Timer = () => {
       <Button
         onClick={() => {
           Notification.requestPermission()
-
           setIsRunning((prev) => !prev)
         }}
       >
@@ -81,18 +85,7 @@ const Timer = () => {
       <Button
         onClick={() => {
           setIsRunning(false)
-          round.current = round.current + 1
-          if (round.current % 2 === 0) {
-            setTimeText('25:00')
-            time.current = 25 * 60
-          } else if (round.current % 7 === 0) {
-            setTimeText('15:00')
-            time.current = 15 * 60
-            round.current = -1
-          } else {
-            setTimeText('05:00')
-            time.current = 5 * 60
-          }
+          updateTimer()
         }}
       >
         Skip
