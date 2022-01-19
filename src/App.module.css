@@ -1,0 +1,10 @@
+.app {
+  text-align: center;
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

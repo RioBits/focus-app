@@ -1,0 +1,11 @@
+.header {
+  border-bottom: 4px solid #3a3450;
+  max-width: 720px;
+  margin: auto;
+}
+
+.logo {
+  font-size: 2rem;
+  color: #eee;
+  margin: 1rem;
+}
