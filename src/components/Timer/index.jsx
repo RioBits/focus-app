@@ -5,7 +5,7 @@ import styles from './Timer.module.css'
 const Timer = () => {
   const [isRunning, setIsRunning] = useState(false)
   const [timeText, setTimeText] = useState('25:00')
-  const time = useRef(0.05 * 60)
+  const time = useRef(25 * 60)
   const round = useRef(0)
 
   useEffect(() => {
@@ -52,14 +52,14 @@ const Timer = () => {
       round.current = round.current + 1
       if (round.current % 2 === 0) {
         setTimeText('25:00')
-        time.current = 0.05 * 60
+        time.current = 25 * 60
       } else if (round.current % 7 === 0) {
         setTimeText('15:00')
-        time.current = 0.05 * 60
+        time.current = 15 * 60
         round.current = -1
       } else {
         setTimeText('05:00')
-        time.current = 0.05 * 60
+        time.current = 5 * 60
       }
     }
     console.log('tick')
