@@ -21,7 +21,7 @@ const Timer = () => {
 
     return () => {
       clearInterval(timer)
-      console.log(`clear timer:`, timer)
+      // console.log(`clear timer:`, timer)
     }
   }, [isRunning])
 
@@ -62,7 +62,7 @@ const Timer = () => {
         time.current = 5 * 60
       }
     }
-    console.log('tick')
+    // console.log('tick')
   }
 
   return (
