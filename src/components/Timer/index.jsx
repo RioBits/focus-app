@@ -2,6 +2,31 @@ import { useEffect, useRef, useState } from 'react'
 import Button from '../Button'
 import styles from './Timer.module.css'
 
+function updateTimer(setTimeText, time, round) {
+  round.current = round.current + 1
+  const notificationSound = new Audio('./sounds/notification.mp3')
+  notificationSound.play()
+  if (round.current % 2 === 0) {
+    time.current = 25 * 60
+    setTimeText('25:00')
+    return new Notification("It's time to go back to work!", {
+      icon: './favicon.ico',
+      body: "Let's get back to work",
+    })
+  } else if (round.current % 7 === 0) {
+    time.current = 15 * 60
+    round.current = -1
+    setTimeText('15:00')
+  } else {
+    time.current = 5 * 60
+    setTimeText('05:00')
+  }
+  new Notification("It's time to take break!", {
+    icon: './favicon.ico',
+    body: "Nice work! now let's take a break",
+  })
+}
+
 const Timer = () => {
   const [isRunning, setIsRunning] = useState(false)
   const [timeText, setTimeText] = useState('25:00')
@@ -40,36 +65,11 @@ const Timer = () => {
 
       if (minutes === 0 && seconds === 0) {
         setIsRunning(false)
-        updateTimer()
+        updateTimer(setTimeText, time, round)
       }
       console.log('tick')
     }
   }, [isRunning])
-
-  function updateTimer() {
-    round.current = round.current + 1
-    const notificationSound = new Audio('./sounds/notification.mp3')
-    notificationSound.play()
-    if (round.current % 2 === 0) {
-      time.current = 25 * 60
-      setTimeText('25:00')
-      return new Notification("It's time to go back to work!", {
-        icon: './favicon.ico',
-        body: "Let's get back to work",
-      })
-    } else if (round.current % 7 === 0) {
-      time.current = 15 * 60
-      round.current = -1
-      setTimeText('15:00')
-    } else {
-      time.current = 5 * 60
-      setTimeText('05:00')
-    }
-    new Notification("It's time to take break!", {
-      icon: './favicon.ico',
-      body: "Nice work! now let's take a break",
-    })
-  }
 
   return (
     <div className={styles.container}>
@@ -86,7 +86,7 @@ const Timer = () => {
       <Button
         onClick={() => {
           setIsRunning(false)
-          updateTimer()
+          updateTimer(setTimeText, time, round)
         }}
       >
         Skip
