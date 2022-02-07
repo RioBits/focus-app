@@ -1,0 +1,26 @@
+.addtask {
+  display: block;
+  width: 100%;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #3a3450;
+  padding: 1.5rem;
+  font-size: 1rem;
+  color: #eeeeee;
+  padding-right: 3.5rem;
+}
+
+.container {
+  position: relative;
+}
+
+.btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  color: #eeeeee;
+  padding: 1rem;
+}

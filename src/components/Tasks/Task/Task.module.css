@@ -1,5 +1,19 @@
 .container {
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   background-color: #3a3450;
   padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.task {
+  cursor: pointer;
+}
+
+.content {
+  margin-left: 0.8rem;
+}
+
+.checkedtext {
+  color: #aaaaaa;
+  text-decoration: line-through;
 }
