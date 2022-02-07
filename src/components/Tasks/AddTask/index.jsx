@@ -21,6 +21,8 @@ const AddTask = () => {
       ...prev,
       { content: newTask, checked: false, id: Date.now() },
     ])
+    
+    setContent('')
   }
 
   return (
