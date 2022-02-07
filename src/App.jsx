@@ -2,6 +2,7 @@ import styles from './App.module.css'
 import Header from './components/Header'
 import Timer from './components/Timer'
 import Tasks from './components/Tasks'
+import { TasksProvider } from './tasksContext'
 
 function App() {
   return (
@@ -9,7 +10,9 @@ function App() {
       <Header />
       <main className={styles.container}>
         <Timer />
-        <Tasks />
+        <TasksProvider>
+          <Tasks />
+        </TasksProvider>
       </main>
     </div>
   )

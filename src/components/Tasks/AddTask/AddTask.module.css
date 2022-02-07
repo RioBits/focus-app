@@ -2,12 +2,16 @@
   display: block;
   width: 100%;
   border-radius: 0.5rem;
-  border: none;
+  border: 2px dashed #eeeeee;
   background-color: #3a3450;
   padding: 1.5rem;
   font-size: 1rem;
   color: #eeeeee;
   padding-right: 3.5rem;
+}
+
+.addtask:focus {
+  outline: none;
 }
 
 .container {
@@ -22,5 +26,5 @@
   background-color: transparent;
   border: none;
   color: #eeeeee;
-  padding: 1rem;
+  padding: 1.5rem;
 }

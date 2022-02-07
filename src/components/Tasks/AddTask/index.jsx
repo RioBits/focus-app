@@ -1,10 +1,12 @@
 import styles from './AddTask.module.css'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { tasksContext } from '../../../tasksContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 
 const AddTask = () => {
   const [content, setContent] = useState('')
+  const { setTasks } = useContext(tasksContext)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -15,11 +17,10 @@ const AddTask = () => {
       return alert('Please enter some text!')
     }
 
-    const tasks = JSON.parse(window.localStorage.getItem('tasks')) || []
-
-    tasks.push({ content: newTask, checked: false })
-
-    window.localStorage.setItem('tasks', JSON.stringify(tasks))
+    setTasks((prev) => [
+      ...prev,
+      { content: newTask, checked: false, id: Date.now() },
+    ])
   }
 
   return (

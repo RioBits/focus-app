@@ -3,10 +3,14 @@
   background-color: #3a3450;
   padding: 1.5rem;
   margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .task {
   cursor: pointer;
+  width: 100%;
 }
 
 .content {
@@ -16,4 +20,9 @@
 .checkedtext {
   color: #aaaaaa;
   text-decoration: line-through;
+}
+
+.trashicon {
+  color: salmon;
+  cursor: pointer;
 }
