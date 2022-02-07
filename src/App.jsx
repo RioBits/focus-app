@@ -1,6 +1,7 @@
-import Timer from './components/Timer'
 import styles from './App.module.css'
 import Header from './components/Header'
+import Timer from './components/Timer'
+import Tasks from './components/Tasks'
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <Header />
       <main className={styles.container}>
         <Timer />
+        <Tasks />
       </main>
     </div>
   )
