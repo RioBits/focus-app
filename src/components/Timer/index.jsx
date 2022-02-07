@@ -2,17 +2,19 @@ import { useEffect, useRef, useState } from 'react'
 import Button from '../Button'
 import styles from './Timer.module.css'
 
-function updateTimer(setTimeText, time, round) {
+function updateTimer(setTimeText, time, round, skip = false) {
   round.current = round.current + 1
   const notificationSound = new Audio('./sounds/notification.mp3')
-  notificationSound.play()
   if (round.current % 2 === 0) {
     time.current = 25 * 60
     setTimeText('25:00')
-    return new Notification("It's time to go back to work!", {
-      icon: './favicon.ico',
-      body: "Let's get back to work",
-    })
+    if (!skip) {
+      notificationSound.play()
+      return new Notification("It's time to go back to work!", {
+        icon: './favicon.ico',
+        body: "Let's get back to work",
+      })
+    }
   } else if (round.current % 7 === 0) {
     time.current = 15 * 60
     round.current = -1
@@ -86,7 +88,7 @@ const Timer = () => {
       <Button
         onClick={() => {
           setIsRunning(false)
-          updateTimer(setTimeText, time, round)
+          updateTimer(setTimeText, time, round, true)
         }}
       >
         Skip
