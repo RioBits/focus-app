@@ -2,9 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import Button from '../Button'
 import styles from './Timer.module.css'
 
+// TODO: cleaner code
+
 function updateTimer(setTimeText, time, round, skip = false) {
   round.current = round.current + 1
-  const notificationSound = new Audio('./sounds/notification.mp3')
+  const notificationSound = new Audio('./sounds/alarm.wav')
   if (round.current % 2 === 0) {
     time.current = 25 * 60
     setTimeText('25:00')
@@ -23,10 +25,12 @@ function updateTimer(setTimeText, time, round, skip = false) {
     time.current = 5 * 60
     setTimeText('05:00')
   }
-  new Notification("It's time to take break!", {
-    icon: './favicon.ico',
-    body: "Nice work! now let's take a break",
-  })
+  if (!skip) {
+    new Notification("It's time to take break!", {
+      icon: './favicon.ico',
+      body: "Nice work! now let's take a break",
+    })
+  }
 }
 
 const Timer = () => {
